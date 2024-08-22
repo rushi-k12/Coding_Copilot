@@ -56,6 +56,8 @@ Welcome to the Copilot Extension! This powerful tool is designed to enhance your
    - This allows you to leverage your own resources and ensures that Copilot works seamlessly with your setup. Just go to the settings, enter your API key, and you’re all set!
    - Or Click on 'Enter API key' and the copilot will provide you with an input box where you can input your own TOGETHER AI api key, and the copilot will add it to your settings.
      
+     ![API Key integration](https://github.com/user-attachments/assets/43474387-f397-4c65-b590-217cba58f47e)
+
 8. **Customizable Models**
    - Choose from a variety of AI models to suit your specific needs. Whether you need help with Python, JavaScript, or any other language, Copilot has you covered.
    - This feature allows you to select the most appropriate model for your coding tasks, ensuring you get the best possible assistance.

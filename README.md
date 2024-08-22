@@ -19,7 +19,7 @@ Welcome to the Copilot Extension! This powerful tool is designed to enhance your
    - This feature helps you understand what might be going wrong in your code and offers potential fixes, making debugging a smoother process.
    -  Copilot will return your code with the necessary debugging changes, which you can move to your editor at the cursor point using the move button.
      
-     ![debug](https://github.com/user-attachments/assets/245ead97-cd40-4d0c-b418-9fccec486b70)
+     ![debug (1)](https://github.com/user-attachments/assets/cd40bb0c-a689-462a-a2b0-9b486501bae0)
 
        
 3. **Code Refactoring**

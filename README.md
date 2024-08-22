@@ -12,19 +12,19 @@ Welcome to the Copilot Extension! This powerful tool is designed to enhance your
      ![suggestion](https://github.com/user-attachments/assets/c8192f9e-61eb-4d6b-8748-35ca3b157505)
 
 2. **Debugging Assistance**
-   - Identify and fix issues in your code with ease. Use the `/debug` command followed by your code to get detailed insights and suggestions for resolving errors. This feature helps you understand what might be going wrong in your code and offers potential fixes, making debugging a smoother process.
+   - Identify and fix issues in your code with ease. Use the `/debug` command followed by your code to get detailed insights and suggestions for resolving errors. This feature helps you understand what might be going wrong in your code and offers potential fixes, making debugging a smoother process. Copilot will return your code with the necessary debugging changes, which you can move to your editor at the cursor point using the move button.
      
      ![debug](https://github.com/user-attachments/assets/245ead97-cd40-4d0c-b418-9fccec486b70)
 
        
 3. **Code Refactoring**
-   - Improve the structure and readability of your code with the `/refactor` command followed by your code. Copilot provides recommendations for refactoring your code to follow best practices. This feature ensures that your code is clean, efficient, and maintainable.
+   - Improve the structure and readability of your code with the `/refactor` command followed by your code. Copilot provides recommendations for refactoring your code to follow best practices. This feature ensures that your code is clean, efficient, and maintainable. Similarly, It will return your code with the recommended changes.
      
      ![refactor](https://github.com/user-attachments/assets/ffe6c379-b584-4746-85b2-d43de31479d2)
 
 
 4. **Code Commenting**
-   - Add meaningful comments to your code using the `/comment` command followed by your code. Copilot will generate comments that explain the purpose and functionality of your code. This feature is particularly useful for documenting your code and making it easier for others (or yourself) to understand later.
+   - Add meaningful comments to your code using the `/comment` command followed by your code. Copilot will generate comments that explain the purpose and functionality of your code. This feature is particularly useful for documenting your code and making it easier for others (or yourself) to understand later. Copilot will return your code with the added comments, which you can seamlessly insert into your editor at the cursor point using the move button.
      
      ![comment1](https://github.com/user-attachments/assets/042892ea-320b-4b9a-97fa-9bd91a8aba46)
 

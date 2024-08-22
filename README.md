@@ -7,7 +7,7 @@ Welcome to the Copilot Extension! This powerful tool is designed to enhance your
 ## Key Features
 
 1. **Code Suggestions**
-   - Copilot offers intelligent code suggestions to help you write code faster and more efficiently. Use the keybinding `Ctrl + Shift + S` to get relevant code completions based on the context. This feature analyzes the code you are writing and provides suggestions that can help you complete your code more quickly and accurately.
+   - Copilot offers intelligent code suggestions to help you write code faster and more efficiently. By analyzing the context of the code you are writing, Copilot can provide relevant completions that match your current coding task. To use this feature, simply place your cursor anywhere in the editor where you need a suggestion or completion and press the keybinding `Ctrl + Shift + S`. Copilot will then generate suggestion based on the current code context, which will be added in your editor at your cursor.  You will have the option to accept or reject each suggestion. If you find a suggestion helpful, you can accept it to automatically insert it into your code. Conversely, if the suggestion does not meet your needs, you can reject it and continue coding. This feature is particularly useful for repetitive coding tasks, boilerplate code, and when you need to quickly implement common patterns or functions, saving you time and reducing the likelihood of syntax errors.
 
      ![suggestion](https://github.com/user-attachments/assets/c8192f9e-61eb-4d6b-8748-35ca3b157505)
 

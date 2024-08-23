@@ -79,9 +79,23 @@ To make your workflow even smoother, here are some handy keybindings:
 - **Send Selection to Chatbox**: `Ctrl + Alt + S`
 - **Get Code Suggestion**: `Ctrl + Shift + S`
 
+## Updates
+
+### New Updates
+
+- Implemented the option to add and update your own API key.
+
+### Upcoming Updates
+
+- Option to add or remove model of your choice both for conversations and code suggestions.
+- Automate /comment, /debug, /refactor features. To make it directly available in the editor using shortcuts.
+- Improve code suggestions by increasing the model's codebase intelligence.
+- Implement inline ghost writing suggestions.
+- ------- Loading ----------
+
 ## Feedback and Support
 
-I am constantly working to improve Copilot and would love to hear your feedback. If you encounter any issues or have suggestions for new features, reach out to me or create new issues.
+I am constantly working to improve Copilot and would love to hear your feedback. If you encounter any issues or have suggestions for new features, reach out or create issues.
 
 ## Conclusion
 

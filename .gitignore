@@ -8,7 +8,7 @@ node_modules
 .vscode-test/**
 out/**
 node_modules/**
-src/**
+utils/message
 .gitignore
 .yarnrc
 webpack.config.js

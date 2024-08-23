@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { copilotViewProvider } from './copilotViewProvider';
-import { getCodeCompletion } from './togetherAIService';
-import { getApiKey, validateApiKey, ensureValidApiKey } from './config';
+import { copilotViewProvider } from '../providers/copilotViewProvider';
+import { getCodeCompletion } from '../services/togetherAIService';
+import { getApiKey, validateApiKey, ensureValidApiKey } from '../config/config';
 
 export async function activate(context: vscode.ExtensionContext) {
     const copilotProvider = new copilotViewProvider(context);
@@ -70,14 +70,8 @@ export async function activate(context: vscode.ExtensionContext) {
 
                 let codeSnippet = codeLines.join('\n').trim();
 
-                // Log the captured code snippet
-                console.log('Captured code snippet:', JSON.stringify(codeSnippet));
-
                 // Get code completion from Together AI
                 const response = await getCodeCompletion(codeSnippet, "mistralai/Mixtral-8x7B-Instruct-v0.1");
-
-                // Log the response from Together AI
-                console.log('Response from Together AI:', response);
 
                 // Insert the response at the cursor position
                 editor.edit(editBuilder => {

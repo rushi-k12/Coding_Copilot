@@ -7,11 +7,20 @@
 			"ES2022"
 		],
 		"sourceMap": true,
-		"rootDir": "src",
-		"strict": true   /* enable all strict type-checking options */
+		"rootDir": "./",
+		"strict": true,   /* enable all strict type-checking options */
 		/* Additional Checks */
 		// "noImplicitReturns": true, /* Report error when not all code paths in function return a value. */
 		// "noFallthroughCasesInSwitch": true, /* Report errors for fallthrough cases in switch statement. */
 		// "noUnusedParameters": true,  /* Report errors on unused parameters. */
-	}
+	},
+	 "include": [
+		
+    	"src/**/*",       // Include all files under the src directory
+    	"config/**/*",   // Include all files under the config directory
+    	"services/**/*", // Include all files under the services directory
+    	"utils/**/*",    // Include all files under the utils directory
+    	"providers/**/*" // Include all files under the providers directory
+  	],
+	
 }

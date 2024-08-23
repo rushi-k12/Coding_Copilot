@@ -92,7 +92,7 @@ To make your workflow even smoother, here are some handy keybindings:
 - Improve code suggestions by increasing the model's codebase intelligence.
 - Implement inline ghost writing suggestions.
 - Implement function summarization. Hovering your cursor at your function-name will allow Copilot to read your function and explain it's functionality or objective and provide tips for optimization if required.
-- ------- Loading ----------
+- ------- Loading... ----------
 
 ## Feedback and Support
 

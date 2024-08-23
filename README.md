@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Welcome to the Copilot Extension! This powerful tool is designed to enhance your coding experience by providing intelligent code suggestions, debugging assistance, refactoring tips, and more. Whether you’re a seasoned developer or just starting out, Copilot is here to support you every step of the way.
+Welcome to the Copilot Extension! This powerful tool is designed to enhance the coding experience by providing intelligent code suggestions, debugging assistance, refactoring tips, and much more.
 
 ## Key Features
 
@@ -81,8 +81,8 @@ To make your workflow even smoother, here are some handy keybindings:
 
 ## Feedback and Support
 
-We are constantly working to improve Copilot and would love to hear your feedback. If you encounter any issues or have suggestions for new features, please reach out to us through our support channels.
+I am constantly working to improve Copilot and would love to hear your feedback. If you encounter any issues or have suggestions for new features, reach out to me or create new issues.
 
 ## Conclusion
 
-Thank you for choosing Copilot! We hope this extension enhances your coding experience and helps you become more productive. Happy coding! 🚀
+Thank you for choosing Copilot! I hope this extension enhances your coding experience and helps you become more productive. Happy coding! 🚀

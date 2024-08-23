@@ -3,6 +3,8 @@ import Together from 'together-ai';
 import * as dotenv from 'dotenv';
 import { CodeAnalyzer, FunctionInfo } from './codeAnalyzer';
 import { getChatCompletion, getCodeCompletion } from './togetherAIService';
+import { SYSTEM_CONTENT_COMMENT, SYSTEM_CONTENT_DEBUG, SYSTEM_CONTENT_REFACTOR, SYSTEM_CONTENT_DEFAULT, INTRODUCTORY_MESSAGE } from './message';
+
 dotenv.config();
 
 const TOGETHER_API_KEY = process.env.TOGETHER_API_KEY || vscode.workspace.getConfiguration().get('copilot.apiKey') ;
@@ -61,34 +63,15 @@ export class copilotViewProvider implements vscode.WebviewViewProvider {
                                 });
                             
                         } else {
-                            if (command === 'comment') { 
-                                    systemContent = `You are a helpful AI programming assistant specialized in commenting code. Always return the user's code as a single code block with comments added to it. Ensure that:
-                                1. The entire response is enclosed within a single code block.
-                                2. The code block starts with \`\`\` followed by the appropriate language identifier.
-                                3. All comments are clearly inserted within the code.
-
-                                Provide comments directly within the code block. Do not include any text outside the code block.`;
-
-                                } else if (command === 'debug') {
-                                    systemContent = `You are a helpful AI programming assistant specialized in debugging code. Your job is to carefully review the code, debug it, and return the user's code, properly debugged, in a single code block. Ensure that:
-                                1. The entire response is within a single code block.
-                                2. The code block starts with \`\`\` followed by the appropriate language identifier.
-                                3. Explain the errors and fixes within comments inside the code block.
-
-                                Do not include any text outside the code block.`;
-
-                                } else if (command === 'refactor') {
-                                    systemContent = `You are a helpful AI programming assistant specialized in refactoring code. Your job is to carefully review the given code and output the properly refactored code in a single code block. Ensure that:
-                                1. The entire response is within a single code block.
-                                2. The code block starts with \`\`\` followed by the appropriate language identifier.
-                                3. Apply proper design patterns, improve performance, and follow coding principles.
-
-                                All explanations should be within the code block as comments. Do not include any text outside the code block.`;
-
-                                } else {
-                                    systemContent = `You are a helpful specialized AI programming assistant. Follow the user's requirements carefully and respond with code blocks. If providing explanations, include them as comments within the code block.`;
-                                }
-
+                            if (command === 'comment') {
+                                systemContent = SYSTEM_CONTENT_COMMENT;
+                            } else if (command === 'debug') {
+                                systemContent = SYSTEM_CONTENT_DEBUG;
+                            } else if (command === 'refactor') {
+                                systemContent = SYSTEM_CONTENT_REFACTOR;
+                            } else {
+                                systemContent = SYSTEM_CONTENT_DEFAULT;
+                            }
 
                             // Get chat completion from Together AI
                             const chatCompletion = await getChatCompletion([
@@ -112,16 +95,8 @@ export class copilotViewProvider implements vscode.WebviewViewProvider {
                             });
                         }
                     } else {
+                        systemContent = SYSTEM_CONTENT_DEFAULT;
                         
-                        systemContent = `You are a helpful specialized AI programming assistant and conversational expert. 
-                            - Return the greetings or responses with the emojis.-Don't provide confidence in your answers. 
-                            - Listen to the User's inputs carefully and respond based on that. 
-                            - Don't assume anything. If you are confused or unaware about something, ask questions to the user to provide them with a proper response. 
-                            - Always talk to your user as if you are talking to someone. 
-                            - Follow the user's requirements carefully and to the letter. 
-                            - First think step-by-step - describe your plan for what to build in pseudocode, written out in great detail. 
-                            - Then output the code in a single code block. - Minimize any other prose. - Wait for the user's instruction. 
-                            - Respond in multiple responses/messages so your responses aren't cut off.`;
                         // Handle normal chat messages without specific commands
                         const chatCompletion = await getChatCompletion([
                             {
@@ -165,9 +140,7 @@ export class copilotViewProvider implements vscode.WebviewViewProvider {
         
     const systemContent = `Introduce yourself`;
     
-    const introductoryMessage = `
-Hi there! I’m your AI coding assistant, here to help you with all your programming needs. Whether you need code suggestions, debugging assistance, refactoring tips, or just some guidance on best practices, I’m here to support you. 😊 You can use the following commands to get specific help: /comment to add comments to your code, /debug to debug your code, /refactor to refactor your code, and /suggest to get code suggestions or use the shortcut in your editor. Here are some handy keybindings to make things even easier: Send Selection to Chatbox with Ctrl + Alt + S and Get Code Suggestion with Ctrl + Shift + S. Just let me know what you need, and I’ll do my best to assist you! 🚀 Happy coding! 💻
-`;
+    const introductoryMessage = INTRODUCTORY_MESSAGE;
 
 
     const chatCompletion = await getChatCompletion([
@@ -246,9 +219,9 @@ Hi there! I’m your AI coding assistant, here to help you with all your program
                 <textarea id="chat-input" class="chat-textarea" rows="1" placeholder="Let's chat..."></textarea>
                 <div class="input-row">
                     <select id="model" class="api-key-dropdown">
-                        <option value="mistralai/Mixtral-8x7B-Instruct-v0.1">Mistral AI </option>
-                        <option value="codellama/CodeLlama-13b-Instruct-hf">Code llama - Python</option>
-                        <option value="google/gemma-7b-it">Google Gemma</option>
+                        <option value="mistralai/Mixtral-8x7B-Instruct-v0.1">Mistral AI 8x7b v0.1</option>
+                        <option value="mistralai/Mistral-7B-Instruct-v0.2">Mistrail AI 7b v0.2</option>
+                        <option value="codellama/CodeLlama-13b-Instruct-hf">Code llama 13b</option>
                         <!-- Add more options as needed -->
                     </select>
                     <img id="send-icon" class="send-icon" src="${sendIconUri}" alt="Send" />

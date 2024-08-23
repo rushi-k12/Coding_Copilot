@@ -89,8 +89,9 @@ To make your workflow even smoother, here are some handy keybindings:
 
 - Option to add or remove model of your choice both for conversations and code suggestions.
 - Automate /comment, /debug, /refactor features. To make it directly available in the editor using shortcuts.
-- Improve code suggestions by increasing it's codebase intelligence.
+- Improve code suggestions by increasing the model's codebase intelligence.
 - Implement inline ghost writing suggestions.
+- ------- Loading ----------
 
 ## Feedback and Support
 

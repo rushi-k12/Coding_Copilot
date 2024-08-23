@@ -77,7 +77,7 @@ Welcome to the Copilot Extension! This powerful tool is designed to enhance the 
 To make your workflow even smoother, here are some handy keybindings:
 
 - **Send Selection to Chatbox**: `Ctrl + Alt + S`
-- **Get Code Suggestion**: `Ctrl + Shift + S`
+- **Get Code Suggestion at your cursor**: `Ctrl + Shift + S`
 
 ## Updates
 
@@ -91,6 +91,7 @@ To make your workflow even smoother, here are some handy keybindings:
 - Automate /comment, /debug, /refactor features. To make it directly available in the editor using shortcuts.
 - Improve code suggestions by increasing the model's codebase intelligence.
 - Implement inline ghost writing suggestions.
+- Implement function summarization. Hovering your cursor at your function-name will allow Copilot to read your function and explain it's functionality or objective and provide tips for optimization if required.
 - ------- Loading ----------
 
 ## Feedback and Support

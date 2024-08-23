@@ -86,5 +86,3 @@ We are constantly working to improve Copilot and would love to hear your feedbac
 ## Conclusion
 
 Thank you for choosing Copilot! We hope this extension enhances your coding experience and helps you become more productive. Happy coding! 🚀
-
-Feel free to customize this documentation further to match your specific needs and preferences. If you need any additional information or assistance, let me know!

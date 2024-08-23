@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { copilotViewProvider } from '../providers/copilotViewProvider';
 import { getCodeCompletion } from '../services/togetherAIService';
-import { getApiKey, validateApiKey, ensureValidApiKey } from '../config/config';
+import { ensureValidApiKey } from '../config/config';
 
 export async function activate(context: vscode.ExtensionContext) {
     const copilotProvider = new copilotViewProvider(context);
@@ -13,10 +13,10 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     // Call analyzeUserCode on activation
-    copilotProvider.analyzeUserCode();
+    await copilotProvider.utils?.analyzeUserCode();
     
     // Automatically run the default chat message handling on activation
-    copilotProvider.handleDefaultChatMessage();
+    await copilotProvider.utils?.handleDefaultChatMessage();
 
     context.subscriptions.push(
         vscode.window.registerWebviewViewProvider(copilotViewProvider.viewType, copilotProvider)
@@ -47,7 +47,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
             const selection = editor.document.getText(editor.selection);
             if (selection) {
-                copilotProvider.updateChatboxInput(selection);
+                copilotProvider.utils?.updateChatboxInput(selection);
             } else {
                 vscode.window.showInformationMessage('No text selected.');
             }
@@ -68,17 +68,17 @@ export async function activate(context: vscode.ExtensionContext) {
                     codeLines.push(document.lineAt(i).text);
                 }
 
-                let codeSnippet = codeLines.join('\n').trim();
+                const code = codeLines.join('\n').trim();
+                const selectedModel = 'mistralai/Mixtral-8x7B-Instruct-v0.1'; 
 
-                // Get code completion from Together AI
-                const response = await getCodeCompletion(codeSnippet, "mistralai/Mixtral-8x7B-Instruct-v0.1");
-
-                // Insert the response at the cursor position
-                editor.edit(editBuilder => {
-                    editBuilder.insert(position, response);
-                });
-
-                // Show accept/reject options
+                try {
+                    const response = await getCodeCompletion(code, selectedModel);
+                    editor.edit(editBuilder => {
+                        editBuilder.insert(position, response);
+                    });
+                } catch (error) {
+                    vscode.window.showErrorMessage('Error getting code completion from Together AI');
+                }
                 const accept = 'Accept';
                 const reject = 'Reject';
                 const userChoice = await vscode.window.showInformationMessage('Do you want to accept this suggestion?', accept, reject);

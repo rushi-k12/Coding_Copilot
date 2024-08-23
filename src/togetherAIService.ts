@@ -3,8 +3,13 @@ import * as vscode from 'vscode';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-const TOGETHER_API_KEY = process.env.TOGETHER_API_KEY || vscode.workspace.getConfiguration().get('copilot.apiKey');
-const together = new Together({ apiKey: TOGETHER_API_KEY });
+let TOGETHER_API_KEY = vscode.workspace.getConfiguration().get('copilot.apiKey') as string | undefined;
+let together = new Together({ apiKey: TOGETHER_API_KEY });
+
+export function reinitializeTogether(apiKey: string) {
+    TOGETHER_API_KEY = apiKey;
+    together = new Together({ apiKey: TOGETHER_API_KEY });
+}
 
 export async function getChatCompletion(messages: any[], model: string): Promise<string> {
     try {
@@ -15,10 +20,9 @@ export async function getChatCompletion(messages: any[], model: string): Promise
         return response.choices[0].message?.content || "Sorry, I didn't understand that.";
     } catch (err) {
         if (err instanceof Together.APIError) {
-            console.log(err.status); // e.g., 400
-            console.log(err.name); // e.g., BadRequestError
-            console.log(err.headers); // e.g., {server: 'nginx', ...}
-            vscode.window.showErrorMessage(`Together AI Error: ${err.name} (${err.status})`);
+            if (err.status === 401) {
+                vscode.window.showErrorMessage('Authentication Error: Invalid API Key. Please enter a valid API Key.');
+            }
         } else {
             throw err;
         }

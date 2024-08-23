@@ -1,10 +1,17 @@
 import * as vscode from 'vscode';
 import { copilotViewProvider } from './copilotViewProvider';
 import { getCodeCompletion } from './togetherAIService';
+import { getApiKey, validateApiKey, ensureValidApiKey } from './config';
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
     const copilotProvider = new copilotViewProvider(context);
-    
+
+    // Ensure a valid API key is available
+    const apiKey = await ensureValidApiKey();
+    if (!apiKey) {
+        return; // Exit activation if no valid API key is provided
+    }
+
     // Call analyzeUserCode on activation
     copilotProvider.analyzeUserCode();
     
@@ -14,7 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(
         vscode.window.registerWebviewViewProvider(copilotViewProvider.viewType, copilotProvider)
     );
-    
+
     context.subscriptions.push(
         vscode.commands.registerCommand('copilot.enterApiKey', async () => {
             const apiKey = await vscode.window.showInputBox({
@@ -25,6 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
             if (apiKey) {
                 await vscode.workspace.getConfiguration().update('copilot.apiKey', apiKey, vscode.ConfigurationTarget.Global);
                 vscode.window.showInformationMessage('API Key saved successfully!');
+                await ensureValidApiKey();
             }
         })
     );
@@ -45,7 +53,7 @@ export function activate(context: vscode.ExtensionContext) {
             }
         })
     );
-    
+
     context.subscriptions.push(
         vscode.commands.registerCommand('copilot.suggest', async () => {
             const editor = vscode.window.activeTextEditor;
@@ -61,7 +69,7 @@ export function activate(context: vscode.ExtensionContext) {
                 }
 
                 let codeSnippet = codeLines.join('\n').trim();
-                
+
                 // Log the captured code snippet
                 console.log('Captured code snippet:', JSON.stringify(codeSnippet));
 
@@ -75,34 +83,30 @@ export function activate(context: vscode.ExtensionContext) {
                 editor.edit(editBuilder => {
                     editBuilder.insert(position, response);
                 });
-                
-                // Show accept/reject options
-                    const accept = 'Accept';
-                    const reject = 'Reject';
-                    const userChoice = await vscode.window.showInformationMessage('Do you want to accept this suggestion?', accept, reject);
 
-                    if (userChoice === accept) {
-                        // Remove the options message
-                        vscode.window.showInformationMessage('Suggestion accepted.');
-                    } else if (userChoice === reject) {
-                        // Remove the inserted suggestion
-                        const endPosition = editor.selection.active;
-                        const range = new vscode.Range(position, endPosition);
-                        await editor.edit(editBuilder => {
-                            editBuilder.delete(range);
-                        });
-                        vscode.window.showInformationMessage('Suggestion rejected.');
-                    }
-                    
+                // Show accept/reject options
+                const accept = 'Accept';
+                const reject = 'Reject';
+                const userChoice = await vscode.window.showInformationMessage('Do you want to accept this suggestion?', accept, reject);
+
+                if (userChoice === accept) {
+                    // Remove the options message
+                    vscode.window.showInformationMessage('Suggestion accepted.');
+                } else if (userChoice === reject) {
+                    // Remove the inserted suggestion
+                    const endPosition = editor.selection.active;
+                    const range = new vscode.Range(position, endPosition);
+                    await editor.edit(editBuilder => {
+                        editBuilder.delete(range);
+                    });
+                    vscode.window.showInformationMessage('Suggestion rejected.');
+                }
+
             } else {
                 vscode.window.showInformationMessage('No active editor found.');
             }
         })
     );
-    
-
-    
 }
-
 
 export function deactivate() {}

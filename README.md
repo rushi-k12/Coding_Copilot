@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Welcome to the Copilot Extension! This powerful tool is designed to enhance your coding experience by providing intelligent code suggestions, debugging assistance, refactoring tips, and more.
+Welcome to the Copilot Extension! This powerful tool is designed to enhance the coding experience by providing intelligent code suggestions, debugging assistance, refactoring tips, and much more.
 
 ## Key Features
 

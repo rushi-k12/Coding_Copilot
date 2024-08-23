@@ -12,10 +12,16 @@ export async function getChatCompletion(messages: any[], model: string): Promise
             messages: messages,
             model: model,
         });
-
         return response.choices[0].message?.content || "Sorry, I didn't understand that.";
-    } catch (error) {
-        vscode.window.showErrorMessage('Error getting response from Together AI');
+    } catch (err) {
+        if (err instanceof Together.APIError) {
+            console.log(err.status); // e.g., 400
+            console.log(err.name); // e.g., BadRequestError
+            console.log(err.headers); // e.g., {server: 'nginx', ...}
+            vscode.window.showErrorMessage(`Together AI Error: ${err.name} (${err.status})`);
+        } else {
+            throw err;
+        }
         return "Sorry, I couldn't complete the request.";
     }
 }
@@ -36,9 +42,15 @@ export async function getCodeCompletion(prompt: string, model: string): Promise<
             completion += chunk.choices[0].text;
         }
         return completion;
-    } catch (error) {
-        console.log(error);
-        vscode.window.showErrorMessage('Error getting response from Together AI');
+    } catch (err) {
+        if (err instanceof Together.APIError) {
+            console.log(err.status); // e.g., 400
+            console.log(err.name); // e.g., BadRequestError
+            console.log(err.headers); // e.g., {server: 'nginx', ...}
+            vscode.window.showErrorMessage(`Together AI Error: ${err.name} (${err.status})`);
+        } else {
+            throw err;
+        }
         return "Sorry, I couldn't complete the code.";
     }
 }

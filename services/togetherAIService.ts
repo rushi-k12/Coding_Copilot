@@ -48,9 +48,9 @@ export async function getCodeCompletion(prompt: string, model: string): Promise<
         return completion;
     } catch (err) {
         if (err instanceof Together.APIError) {
-            console.log(err.status); // e.g., 400
-            console.log(err.name); // e.g., BadRequestError
-            console.log(err.headers); // e.g., {server: 'nginx', ...}
+            console.log(err.status);
+            console.log(err.name); 
+            console.log(err.headers); 
             vscode.window.showErrorMessage(`Together AI Error: ${err.name} (${err.status})`);
         } else {
             throw err;

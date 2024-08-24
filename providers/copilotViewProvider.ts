@@ -1,25 +1,28 @@
-// providers/copilotprovider.ts
 import * as vscode from 'vscode';
 import { MessageHandler } from './messageHandler';
 import { Utils } from '../utils/utils';
 
+interface ChatMessage {
+    role: 'system' | 'user' | 'assistant';
+    content: string;
+}
 export class copilotViewProvider implements vscode.WebviewViewProvider {
     public static readonly viewType = 'copilot.sidebar';
-    private _view?: vscode.WebviewView;
-    public messageHandler?: MessageHandler;
-    public utils?: Utils;
+    public _view?: vscode.WebviewView;
+    private messageHandler?: MessageHandler;
+    public utils !: Utils;
+    public conversationHistory: ChatMessage[] = []; // Shared conversation history
 
     constructor(private readonly context: vscode.ExtensionContext) {}
 
-    public resolveWebviewView(
+    public async resolveWebviewView(
         webviewView: vscode.WebviewView,
         context: vscode.WebviewViewResolveContext,
         _token: vscode.CancellationToken
-    ): void {
+    ): Promise<void> {
         this._view = webviewView;
-        this.messageHandler = new MessageHandler(webviewView);
-        this.utils = new Utils(this.context, webviewView);
-
+        this.messageHandler = new MessageHandler(webviewView, this.conversationHistory);
+        const utils = new Utils(this.context, webviewView, this.conversationHistory); 
         webviewView.webview.options = {
             enableScripts: true,
         };
@@ -32,7 +35,16 @@ export class copilotViewProvider implements vscode.WebviewViewProvider {
                 await this.messageHandler.handleMessage(message, selectedModel);
             }
         });
+        
+        // Run code analysis on webview resolve
+        await utils.analyzeUserCode();
+
+        // Run the default chat message handling on webview resolve
+        await utils.handleDefaultChatMessage();
+
     }
+    
+
 
     private getHtmlForWebview(webview: vscode.Webview): string {
         const scriptUri = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'media', 'main.js'));

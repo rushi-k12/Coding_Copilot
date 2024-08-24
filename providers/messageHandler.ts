@@ -1,4 +1,3 @@
-// providers/messageHandler.ts
 import * as vscode from 'vscode';
 import { getChatCompletion, getCodeCompletion } from '../services/togetherAIService';
 import { SYSTEM_CONTENT_COMMENT, SYSTEM_CONTENT_DEBUG, SYSTEM_CONTENT_REFACTOR, SYSTEM_CONTENT_DEFAULT } from '../utils/message';
@@ -9,9 +8,11 @@ interface ChatMessage {
 }
 
 export class MessageHandler {
-    private conversationHistory: ChatMessage[] = [];
-
-    constructor(private readonly webviewView: vscode.WebviewView) {}
+    
+    constructor(
+        private readonly webviewView: vscode.WebviewView,
+        private conversationHistory: ChatMessage[]
+    ) {}
 
     public async handleMessage(message: any, selectedModel: string) {
         if (message.command === 'sendMessage') {
@@ -85,10 +86,8 @@ export class MessageHandler {
                         }
                     ], selectedModel);
 
-                    // Add bot response to conversation history
                     this.conversationHistory.push({ role: 'assistant', content: chatCompletion });
 
-                    // Send the bot's response back to the webview
                     this.webviewView.webview.postMessage({
                         command: 'receiveMessage',
                         botResponse: chatCompletion,

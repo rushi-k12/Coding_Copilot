@@ -1,4 +1,3 @@
-// utils/utils.ts
 import * as vscode from 'vscode';
 import { CodeAnalyzer } from './codeAnalyzer';
 import { getChatCompletion } from '../services/togetherAIService';
@@ -10,19 +9,15 @@ interface ChatMessage {
 }
 
 export class Utils {
-    private conversationHistory: ChatMessage[] = [];
 
-    constructor(private readonly context: vscode.ExtensionContext, private readonly webviewView: vscode.WebviewView) {}
+    constructor(
+        private readonly context: vscode.ExtensionContext,
+        private readonly webviewView: vscode.WebviewView,
+        private conversationHistory: ChatMessage[]
+    ) {}
 
     public addSystemMessage(content: string) {
         this.conversationHistory.push({ role: 'system', content });
-    }
-
-    public updateChatboxInput(text: string) {
-        this.webviewView.webview.postMessage({
-            command: 'updateInput',
-            text: text
-        });
     }
 
     public async handleDefaultChatMessage() {
@@ -40,7 +35,6 @@ export class Utils {
             }
         ], 'mistralai/Mixtral-8x7B-Instruct-v0.1');
 
-        // Add bot response to conversation history
         this.conversationHistory.push({ role: 'assistant', content: chatCompletion });
 
         // Send the bot's response back to the webview
@@ -51,7 +45,7 @@ export class Utils {
     }
 
     public async analyzeUserCode() {
-        const files = await vscode.workspace.findFiles('**/*.{ts,js,jsx}', '**/node_modules/**');
+        const files = await vscode.workspace.findFiles('**/*.{ts,js,jsx,py}', '**/node_modules/**');
         for (const file of files) {
             const document = await vscode.workspace.openTextDocument(file);
             const code = document.getText();

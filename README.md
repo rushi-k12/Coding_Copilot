@@ -61,6 +61,11 @@ Welcome to the Copilot Extension! This powerful tool is designed to enhance the 
 8. **Customizable Models**
    - Choose from a variety of AI models to suit your specific needs. Whether you need help with Python, JavaScript, or any other language, Copilot has you covered.
    - This feature allows you to select the most appropriate model for your coding tasks, ensuring you get the best possible assistance.
+
+9. **Prompt Enhacement**
+   - Refines and expands user prompts to ensure clarity and context.
+   - Enhances communication with the language model, leading to more accurate and relevant responses.
+   - Simplifies the process of generating detailed and contextually appropriate prompts, improving overall user experience and productivity.
      
 
 ## How to Use

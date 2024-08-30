@@ -89,6 +89,7 @@ To make your workflow even smoother, here are some handy keybindings:
 ### New Updates
 
 - Implemented the option to add and update your own API key.
+- Added Prompt Enhancement for the user. Now user can enhance their abstract prompt to be more contextually relevant.
 
 ### Upcoming Updates
 
